@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, Grid } from "@mui/material";
 
 import { Layout } from "@/components/layouts";
-import { EntryList } from "@/components/ui";
+import { EntryList, NewEntry } from "@/components/ui";
 
 const HomePage = () => {
   return (
@@ -12,6 +12,7 @@ const HomePage = () => {
           <Card sx={{ height: "calc(100vh - 100px)" }}>
             <CardHeader title="Pendientes" />
             <CardContent>
+              <NewEntry />
               <EntryList status="pending" />
             </CardContent>
           </Card>

@@ -33,6 +33,8 @@ export const connect = async () => {
 };
 
 export const disconnect = async () => {
+  if (process.env.NODE_ENV === "development") return; //No cerrar la conexión en modo desarrollo
+
   if (mongooConnection.isConnected === 0) return;
 
   console.log("Desconectando");

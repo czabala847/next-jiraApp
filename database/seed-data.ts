@@ -1,3 +1,5 @@
+//Este archivo no subir a producción
+
 interface SeedData {
   entries: SeedEntry[];
 }

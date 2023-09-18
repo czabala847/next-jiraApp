@@ -11,6 +11,8 @@ export default function handler(
   switch (req.method) {
     case "GET":
       return getEntries(res);
+    case "POST":
+      return postEntry(req, res);
     default:
       return res.status(400).json({ message: "Endpoint no exite" });
   }
@@ -22,4 +24,27 @@ const getEntries = async (res: NextApiResponse<Data>) => {
   await db.disconnect();
 
   res.status(200).json(entries);
+};
+
+const postEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  try {
+    const { description = "" } = req.body;
+
+    const newEntry = new Entry({
+      description,
+      createdAt: Date.now(),
+    });
+
+    await db.connect();
+    await newEntry.save();
+    await db.disconnect();
+
+    return res.status(201).json(newEntry);
+  } catch (error) {
+    await db.disconnect();
+    console.error("Error postEntry", error);
+    res
+      .status(500)
+      .json({ message: "Ocurrió un error revisa la consola del servidor" });
+  }
 };

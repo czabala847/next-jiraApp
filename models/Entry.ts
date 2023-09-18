@@ -12,6 +12,7 @@ const entrySchema = new Schema({
       values: ["pending", "in-progress", "finished"],
       message: "{VALUE} no es un estado permitido", //VALUE es lo que envia el cliente
     },
+    default: "pending",
   },
 });
 

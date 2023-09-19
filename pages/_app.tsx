@@ -4,6 +4,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 
 import type { AppProps } from "next/app";
 
@@ -14,13 +15,15 @@ import { darkTheme, lightTheme } from "@/themes";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <EntriesProvider>
-      <UIProvider>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </UIProvider>
-    </EntriesProvider>
+    <SnackbarProvider>
+      <EntriesProvider>
+        <UIProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </UIProvider>
+      </EntriesProvider>
+    </SnackbarProvider>
   );
 }

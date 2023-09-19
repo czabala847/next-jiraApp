@@ -18,11 +18,28 @@ export default function handler(
   switch (req.method) {
     case "PUT":
       return updateEntry(req, res);
+    case "GET":
+      return getEntry(req, res);
 
     default:
       return res.status(400).json({ message: "Endpoint no exite" });
   }
 }
+
+const getEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  db.connect();
+  const { id } = req.query;
+
+  const entryFound = await Entry.findById(id);
+
+  db.disconnect();
+
+  if (!entryFound) {
+    return res.status(400).json({ message: "Entrada no existe" });
+  }
+
+  return res.status(200).json(entryFound);
+};
 
 const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   db.connect();
